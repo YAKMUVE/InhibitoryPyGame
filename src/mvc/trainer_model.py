@@ -103,8 +103,17 @@ class TrainerModel:
         if self.lives <= 0:
             self.game_over()
 
+        else:
+            snd = self.assets.get_sound('lose_life')
+            if snd:
+                self.assets.get_sound('lose_life').play()
+
     def game_over(self):
         self.game_running = False
+
+        snd = self.assets.get_sound('game_over')
+        if snd:
+            self.assets.get_sound('game_over').play()
 
         entry = {
             'score': getattr(self, 'score', 0),

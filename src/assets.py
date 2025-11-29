@@ -11,7 +11,7 @@ class Assets:
         self.background_image = None
 
         self.images = {}
-        self.music = {}
+        self.sounds = {}
 
     def get_image(self, key: str) -> pygame.Surface | None:
         if not key:
@@ -29,8 +29,21 @@ class Assets:
         except Exception:
             return None
 
-    def get_sound(self, file: str) -> pygame.mixer.Sound | None:
-        pass
+    def get_sound(self, key: str) -> pygame.mixer.Sound | None:
+        if not key:
+            return None
+
+        try:
+            if key in self.sounds:
+                return self.sounds[key]
+
+            snd = pygame.mixer.Sound(self.assets_dir + f'/sounds/{key}.mp3')
+            self.sounds[key] = snd
+
+            return snd
+
+        except Exception:
+            return None
 
     def get_music_list(self) -> list[str]:
         return os.listdir(self.assets_dir + '/music')

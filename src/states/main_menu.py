@@ -19,7 +19,7 @@ class Button:
 
     def draw(self, surf):
         if self.is_hovered:
-            pygame.draw.rect(surf, (200, 200, 200), self.rect, border_radius=36)
+            pygame.draw.rect(surf, (138, 158, 255), self.rect, border_radius=36)
 
         txt = self.font.render(self.text, True, (0, 0, 0))
         surf.blit(txt, txt.get_rect(center=self.rect.center))
@@ -51,6 +51,8 @@ class MainMenuState(BaseState):
         self.assets = self.manager.assets
         self.font = pygame.font.SysFont('arial', 24)
 
+        self.assets.background_image = self.assets.get_image('background_main_menu')
+
         w, h = self.screen.get_size()
         self.buttons = [
             Button((w // 2 - 150, 360 + i * 70, 300, 60), name, cb, self.font)
@@ -74,7 +76,10 @@ class MainMenuState(BaseState):
         pass
 
     def render(self):
-        self.screen.fill((228, 239, 246))
+        if self.assets.background_image:
+            self.screen.blit(self.assets.background_image, (0, -50))
+        else:
+            self.screen.fill((228, 239, 246))
 
         title = pygame.font.SysFont('arial', 36).render('Меню', True, (0, 0, 0))
         self.screen.blit(title, (self.screen.get_width() // 2 - title.get_width() // 2, 60))
