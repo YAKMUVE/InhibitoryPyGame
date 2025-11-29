@@ -39,9 +39,9 @@ class TrainerView:
         for i in range(self.model.lives):
             self.screen.blit(pygame.transform.smoothscale(self.assets.get_image('lives'), (50, 50)), (120 + i * 35, 10))
 
-        # очки
+        # время
         txt = self.font.render(f'{self.model.current_game_time:.1f}', True, (255, 255, 255))
-        self.screen.blit(txt, (self.screen.get_width() // 2 - txt.get_width() // 2, 10))
+        self.screen.blit(txt, (self.screen.get_width() - txt.get_width() // 2 - 50, 20))
 
         # цель (кнопка)
         if self.model.current_target_key == 32: txt = pygame.font.SysFont('arial', 36).render('[SPACE]', True, (255, 255, 255))
@@ -54,8 +54,8 @@ class TrainerView:
         elif self.model.current_target_key == 106: txt = pygame.font.SysFont('arial', 36).render('[J]', True, (255, 255, 255))
         elif self.model.current_target_key == 107: txt = pygame.font.SysFont('arial', 36).render('[K]', True, (255, 255, 255))
         elif self.model.current_target_key == 108: txt = pygame.font.SysFont('arial', 36).render('[L]', True, (255, 255, 255))
-        self.screen.blit(txt, (self.screen.get_width() - txt.get_width() // 2 - 200, 15))
+        self.screen.blit(txt, (self.screen.get_width() // 2 - txt.get_width() // 2 - 40, 15))
 
         # цель (сущность)
         target = pygame.transform.smoothscale(self.assets.get_image(self.model.current_target["image"]), (100, 100))
-        self.screen.blit(target, (self.screen.get_width() - target.get_width() // 2 - 70, 0))
+        self.screen.blit(target, (self.screen.get_width() // 2 - target.get_width() // 2 + 40, 0))

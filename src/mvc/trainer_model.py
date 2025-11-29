@@ -10,12 +10,21 @@ KEY_POOL = [pygame.K_SPACE, pygame.K_w, pygame.K_s, pygame.K_d, pygame.K_f, pyga
 
 
 class Entity:
-    def __init__(self, data: dict, pos: tuple):
+    def __init__(self, data: dict, target_pos: tuple):
         self.data = data
-        self.pos = pos
-        self.rect = pygame.Rect(*pos, 100, 100)
+
+        self.pos = (target_pos[0], target_pos[1] + 100)
+        self.target_pos = target_pos
+        self.speed = 2
+
+        self.rect = pygame.Rect(*self.pos, 100, 100)
 
         self.created_at = time.time()
+
+    def update(self):
+        if abs(self.target_pos[1] - self.pos[1]) > 2:
+            self.pos = (self.pos[0], self.pos[1] - self.speed)
+            self.rect = pygame.Rect(*self.pos, 100, 100)
 
 
 class TrainerModel:
@@ -126,6 +135,7 @@ class TrainerModel:
         try:
             with open('data/stats/stats.json', 'r', encoding='utf-8') as f:
                 arr = json.load(f)
+
         except Exception:
             arr = []
 
@@ -141,11 +151,14 @@ class TrainerModel:
             self.entities.pop(0)
 
         ent = random.choice(self.entities_pool)
-        self.entities.append(Entity(ent, (random.randint(100, self.assets.screen.get_width() - 100), random.randint(self.assets.screen.get_height() // 2, self.assets.screen.get_height() - 100))))
+        self.entities.append(Entity(ent, (random.choice([elem for elem in range(100, 1100, 50)]), random.choice([elem for elem in range(300, 600, 50)]))))
 
     def update(self, dt: float) -> None:
         self.spawn_timer += dt
         self.current_game_time += dt
+
+        for entity in self.entities:
+            entity.update()
 
         if self.current_game_time % 30 < dt:
             self.toggle_daynight()
