@@ -1,0 +1,10 @@
+[
+  {"name": "Краб", "image": "crab", "size": [20, 20]},
+  {"name": "Дельфин", "image": "dolphin_night", "size": [80, 80]},
+  {"name": "Угорь", "image": "eel", "size": [60, 60]},
+  {"name": "Рыба", "image": "fish_night", "size": [60, 60]},
+  {"name": "Морской конёк", "image": "seahorse", "size": [60, 60]},
+  {"name": "Морские водоросли", "image": "seaweed", "size": [50, 50]},
+  {"name": "Акула", "image": "shark_night", "size": [50, 50]},
+  {"name": "Скат", "image": "stingray", "size": [50, 50]}
+]
