@@ -14,8 +14,6 @@ class DiagnosisState(BaseState):
         self.grid = []
         self.cell_rects: List[List[pygame.Rect]] = []
 
-        self.found = set()
-
         self.start_time = None
         self.end_time = None
         self.next_number = 1
@@ -48,7 +46,6 @@ class DiagnosisState(BaseState):
 
             self.cell_rects.append(row_rects)
 
-        self.found = set()
         self.next_number = 1
 
         self.start_time = None
@@ -75,7 +72,6 @@ class DiagnosisState(BaseState):
                                 if self.next_number == 1:
                                     self.start_time = time.time()
 
-                                self.found.add(val)
                                 self.next_number += 1
 
                                 if self.next_number > 25:
@@ -91,7 +87,7 @@ class DiagnosisState(BaseState):
         pygame.draw.rect(self.manager.screen, (200, 200, 200), self.exit_rect)
         self.manager.screen.blit(pygame.transform.smoothscale(self.manager.assets.get_image('exit'), (25, 25)), (self.exit_rect.x  + self.exit_rect.w // 2 - 12.5, self.exit_rect.y + self.exit_rect.h // 2 - 12.5))
 
-        title = self.font.render("Нажимайте на числа по порядку", True, (0,0,0))
+        title = self.font.render(f"Таблица Шульте. Цель: {self.next_number}", True, (0,0,0))
         self.manager.screen.blit(title, (self.manager.screen.get_width() // 2 - title.get_width() // 2, 60))
 
         for r in range(5):
@@ -99,8 +95,7 @@ class DiagnosisState(BaseState):
                 rect = self.cell_rects[r][c]
                 val = self.grid[r][c]
 
-                color = (230, 230, 230) if val in self.found else (245, 245, 245)
-                pygame.draw.rect(self.manager.screen, color, rect)
+                pygame.draw.rect(self.manager.screen, (245, 245, 245), rect)
 
                 txt = self.font.render(str(val), True, (0, 0, 0))
                 self.manager.screen.blit(txt, (rect.x + rect.w // 2 - txt.get_width() // 2, rect.y + rect.h // 2 - txt.get_height() // 2))
