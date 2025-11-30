@@ -15,7 +15,7 @@ PADDING = 14
 STATS_PATH = os.path.join('data', 'stats', 'stats.json')
 EXPORT_PATH = os.path.join('data', 'stats', 'export_stats.csv')
 METRIC_KEYS = [
-    ('total_score', 'Суммарно score'),
+    ('total_score', 'Суммарно очков'),
     ('best_max_focus', 'Макс. фокус (s)'),
     ('max_time', 'Макс. время игры (s)'),
     ('avg_time', 'Сред. время игры (s)')
